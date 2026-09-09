@@ -34,3 +34,4 @@ D:\DOCUMENTOS\Wo Makers Code\Desenvolvimento de APis com .NET\Projeto API dotnet
 D:\DOCUMENTOS\Wo Makers Code\Desenvolvimento de APis com .NET\Projeto API dotnet\MinhaPrimeiraApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\DOCUMENTOS\Wo Makers Code\Desenvolvimento de APis com .NET\Projeto API dotnet\MinhaPrimeiraApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\DOCUMENTOS\Wo Makers Code\Desenvolvimento de APis com .NET\Projeto API dotnet\MinhaPrimeiraApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\DOCUMENTOS\Wo Makers Code\Desenvolvimento de APis com .NET\Projeto API dotnet\MinhaPrimeiraApi\obj\Debug\net10.0\MinhaPrimeiraApi.sourcelink.json
