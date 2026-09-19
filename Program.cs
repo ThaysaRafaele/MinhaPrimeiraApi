@@ -1,5 +1,7 @@
 using MinhaPrimeiraApi.Data;
 using Microsoft.EntityFrameworkCore;
+using MinhaPrimeiraApi.Repositories;
+using MinhaPrimeiraApi.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=minhaapi.db"));
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 
 var app = builder.Build();
