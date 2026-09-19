@@ -13,7 +13,7 @@ public class ProdutoRepository : IProdutoRepository
         _context = context;
     }
 
-     public async Task<List<Produto>> ListarTodosAsync()
+    public async Task<List<Produto>> ListarTodosAsync()
     {
         
         return await _context.Produtos.ToListAsync();
@@ -52,5 +52,10 @@ public class ProdutoRepository : IProdutoRepository
         _context.Produtos.Remove(produto);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<bool> ExisteNomeDuplicadoAsync(string nome)
+    {
+        return await _context.Produtos.AnyAsync(p => p.Nome == nome);
     }
 }
