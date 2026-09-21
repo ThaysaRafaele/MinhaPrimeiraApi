@@ -49,15 +49,8 @@ public class ProdutosController : ControllerBase
             return BadRequest(ApiResponse<Produto>.Erro("Dados inválidos."));
         }
 
-        try
-        {
-            var produtoCriado = await _service.CriarAsync(prod);
-            return CreatedAtAction(nameof(BuscarPorId), new { id = produtoCriado.Id }, ApiResponse<Produto>.Ok(produtoCriado));
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ApiResponse<Produto>.Erro(ex.Message));
-        }
+        var produtoCriado = await _service.CriarAsync(prod);
+        return CreatedAtAction(nameof(BuscarPorId), new { id = produtoCriado.Id }, ApiResponse<Produto>.Ok(produtoCriado));
     }
 
     [HttpPut("{id}")]
