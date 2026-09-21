@@ -20,7 +20,7 @@ public class ProdutosController : ControllerBase
     public async Task<IActionResult> ListarTodos()
     {
         var Produtos = await _service.ListarTodosAsync();
-        return Ok(Produtos);
+        return Ok(ApiResponse<List<Produto>>.Ok(Produtos));
     }
 
     [HttpGet("{id}")]   
@@ -28,17 +28,17 @@ public class ProdutosController : ControllerBase
     {
         if(id <= 0)
         {
-            return BadRequest("O ID deve ser maior que zero.");
+            return BadRequest(ApiResponse<Produto>.Erro("O ID deve ser maior que zero."));
         }
 
         var produto = await _service.BuscarPorIdAsync(id);
 
          if (produto == null)
         {
-            return NotFound($"Produto com ID {id} não encontrado.");
+            return NotFound(ApiResponse<Produto>.Erro($"Produto com ID {id} não encontrado."));
         }
 
-        return Ok(produto);
+        return Ok(ApiResponse<Produto>.Ok(produto));
     }
 
     [HttpPost] 
@@ -46,17 +46,17 @@ public class ProdutosController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest(ModelState);
+            return BadRequest(ApiResponse<Produto>.Erro("Dados inválidos."));
         }
 
         try
         {
             var produtoCriado = await _service.CriarAsync(prod);
-            return CreatedAtAction(nameof(BuscarPorId), new { id = produtoCriado.Id }, produtoCriado);
+            return CreatedAtAction(nameof(BuscarPorId), new { id = produtoCriado.Id }, ApiResponse<Produto>.Ok(produtoCriado));
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(ApiResponse<Produto>.Erro(ex.Message));
         }
     }
 
@@ -64,14 +64,14 @@ public class ProdutosController : ControllerBase
     public async Task<IActionResult> Atualizar(int id, [FromBody] Produto produtoAtualizado)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+            return BadRequest(ApiResponse<Produto>.Erro("Dados inválidos."));
 
         var produto = await _service.AtualizarAsync(id, produtoAtualizado);
 
         if (produto == null)
-            return NotFound($"Produto com ID {id} não encontrado.");
+            return NotFound(ApiResponse<Produto>.Erro($"Produto com ID {id} não encontrado."));
 
-        return Ok($"Produto com ID {id} atualizado com sucesso!");
+        return Ok(ApiResponse<Produto>.Ok(produto));
     }
 
     [HttpDelete("{id}")]
@@ -80,8 +80,8 @@ public class ProdutosController : ControllerBase
         var removido = await _service.RemoverAsync(id);
         
         if (!removido)
-            return NotFound($"Produto com ID {id} não encontrado.");
+            return NotFound(ApiResponse<Produto>.Erro($"Produto com ID {id} não encontrado."));
 
-        return NoContent();
+        return Ok(ApiResponse<bool>.Ok(removido));
     }
 }
