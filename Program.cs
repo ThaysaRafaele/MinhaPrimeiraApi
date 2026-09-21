@@ -2,6 +2,7 @@ using MinhaPrimeiraApi.Data;
 using Microsoft.EntityFrameworkCore;
 using MinhaPrimeiraApi.Repositories;
 using MinhaPrimeiraApi.Services;
+using MinhaPrimeiraApi.Middlewares;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
